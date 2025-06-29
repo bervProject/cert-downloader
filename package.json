@@ -1,0 +1,11 @@
+{
+  "name": "cert-downloader",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "image-to-pdf": "^3.0.2",
+    "parse": "^6.1.1",
+    "puppeteer": "^24.11.1"
+  }
+}
