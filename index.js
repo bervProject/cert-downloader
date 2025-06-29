@@ -3,9 +3,6 @@ const Parse = require('parse/node');
 const { convert, sizes } = require('image-to-pdf');
 const fs = require('fs');
 
-Parse.initialize(process.env.PARSE_APP_ID, process.env.PARSE_JS_KEY);
-Parse.serverURL = "https://parseapi.back4app.com/";
-
 async function getCerts()
 {
   const links = [];
@@ -25,7 +22,9 @@ async function getCerts()
 
 async function loadImage(url, index) {
   console.log('load[%d]: %s', index, url);
-  const browser = await puppeteer.launch({ defaultViewport: null });
+  const browser = await puppeteer.launch({ defaultViewport: null, args: [
+    "--no-sandbox"
+  ] });
   const page = await browser.newPage();
   await page.goto(url, {
     waitUntil: 'networkidle0',
@@ -56,6 +55,8 @@ async function createPdf() {
   } catch (err) {
     console.error(err);
   }
+  Parse.initialize(process.env.PARSE_APP_ID, process.env.PARSE_JS_KEY);
+  Parse.serverURL = "https://parseapi.back4app.com/";
   const certs = await getCerts();
   console.log("Total certs: %d", certs.length);
   if (certs.length === 0) {

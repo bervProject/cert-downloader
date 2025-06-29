@@ -11,19 +11,19 @@ jobs:
     runs-on: "ubuntu-latest"
     strategy:
       matrix:
-        node-version: ['22.x', '24.x']
+        node-version: ['20.x', '22.x']
     steps:
     - uses: actions/checkout@v4
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
-    - run: node index.js
+    - run: yarn install --no-lockfile && node index.js
       env:
-        PARSE_APP_ID: ${{ github.secrets.PARSE_APP_ID }}
-        PARSE_JS_KEY: ${{ github.secrets.PARSE_JS_KEY }}
+        PARSE_APP_ID: ${{ secrets.PARSE_APP_ID }}
+        PARSE_JS_KEY: ${{ secrets.PARSE_JS_KEY }}
     - name: Archive production artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: pdf-output
+        name: pdf-output-${{ matrix.node-version }}
         path: temp/*.pdf
