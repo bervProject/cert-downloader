@@ -5,7 +5,7 @@
   "license": "MIT",
   "dependencies": {
     "image-to-pdf": "^3.0.2",
-    "parse": "^6.1.1",
+    "parse": "^7.0.1",
     "puppeteer": "^24.23.0"
   }
 }
